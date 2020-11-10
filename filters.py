@@ -62,8 +62,8 @@ class GaussianBlur(Kernel):
         return np.exp(-0.5 * ((x - self.mu) / self.std)**2) / np.sqrt(2 * np.pi * self.std**2)
 
 
-class PrewittEdge(Kernel):
-    """Defines the Prewiit edge detecting kernel (fixed size 3x3)
+class Prewitt(Kernel):
+    """Defines the Prewitt gradient kernel (fixed size 3x3)
     """
 
     def __init__(self, mode):
@@ -86,8 +86,8 @@ class PrewittEdge(Kernel):
         }[mode]
 
 
-class SobelEdge(Kernel):
-    """Defines the Sobel edge detecting kernel (fixed size 3x3)
+class Sobel(Kernel):
+    """Defines the Sobel gradient kernel (fixed size 3x3)
     """
 
     def __init__(self, mode):
@@ -96,7 +96,7 @@ class SobelEdge(Kernel):
         # once again, using separability
         grad = np.array([1, 0 , -1])
         avg = np.array([1, 2, 1])
-        k = np.outer(grad, avg)
+        k = np.outer(avg, grad)
 
         # different edge detecting modes
         if mode not in ["horiz", "vert", "ldiag", "rdiag"]:
